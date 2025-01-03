@@ -6,7 +6,7 @@
 /*   By: jinsecho <jinsecho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:52:12 by jinsecho          #+#    #+#             */
-/*   Updated: 2024/12/28 20:42:47 by jinsecho         ###   ########.fr       */
+/*   Updated: 2025/01/03 22:37:25 by jinsecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,34 @@
 # define KEY_D		100
 # define BLOCK		32
 
+typedef struct s_flag
+{
+	int		NO;
+	int		SO;
+	int		WE;
+	int		EA;
+	int		F;
+	int		C;
+}	t_flag;
 typedef struct s_game
 {
 	char 			**map;
+	char			*linecat;
+	char			*NO;
+	char			*SO;
+	char			*WE;
+	char			*EA;
+	int				*F;
+	int				*C;
 	struct s_map	*map_info;	
 }	t_game;
 typedef struct s_map
 {
-	int	w;
-	int	h;
+	int		w;
+	int		h;
+	char	player_news;
+	int		player_x;
+	int		player_y;
 }	t_map;
 
 #endif
