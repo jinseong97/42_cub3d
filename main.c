@@ -6,7 +6,7 @@
 /*   By: jinsecho <jinsecho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:51:43 by jinsecho          #+#    #+#             */
-/*   Updated: 2025/01/03 23:36:36 by jinsecho         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:26:18 by jinsecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	print_error(char *errorcode)
 {
+	printf("Error\n");
 	printf("%s", errorcode);
 	exit (EXIT_FAILURE);
 }
@@ -124,8 +125,6 @@ static void	map_read(t_game *game, int fd)
 			else
 				print_error("Invalid map file!\n");
 		}
-		// else if (line[i] == ' ' || line[i] == '1')
-		// 	print_error("Invalid map file!\n");
 		else
 			print_error("Invalid map file!\n");
 		free(line);
@@ -272,9 +271,9 @@ void	map_check(t_game *game, char *filename)
 	map_make_rectangle(game);
 	map_surrounded_wall_check(game, game->map, '0');
 	map_surrounded_wall_check(game, game->map, game->map_info->player_news);
-	int i = 0;
-	while (game->map[i])
-		printf("%s|\n", game->map[i++]);
+	// int i = 0;
+	// while (game->map[i])
+	// 	printf("%s|\n", game->map[i++]);
 }
 
 void	game_var_init(t_game *game)
@@ -314,6 +313,30 @@ void	all_free(t_game *game)
 	free(game->linecat);
 }
 
+
+int	key_press(int keycode)
+{
+	if (keycode == KEY_ESC)
+		exit(0);
+	return (0);
+}
+
+int	game_close(void)
+{
+	exit (0);
+}
+
+void	hook_setting(t_game *game)
+{
+	mlx_key_hook(game->mlx.win, &key_press, game);
+	mlx_hook(game->mlx.win, 17, 0, game_close, game);
+}
+
+// void	map_print(t_game *game)
+// {
+// 	game->map;
+// }
+
 int	main(int ac, char **av)
 {
 	t_game	game;
@@ -322,7 +345,11 @@ int	main(int ac, char **av)
 		print_error("Invalid argument!\n");
 	game_var_init(&game);
 	map_check(&game, av[1]);
-	// printf("success\n");
 	all_free(&game);
+	game.mlx.mlx = mlx_init();
+	game.mlx.win = mlx_new_window(game.mlx.mlx, 1280, 720, "cub3d");
+	// map_print(&game);
+	hook_setting(&game);
+	mlx_loop(game.mlx.mlx);
 	return (0);
 }

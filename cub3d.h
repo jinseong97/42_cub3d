@@ -6,7 +6,7 @@
 /*   By: jinsecho <jinsecho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:52:12 by jinsecho          #+#    #+#             */
-/*   Updated: 2025/01/03 22:37:25 by jinsecho         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:59:26 by jinsecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ typedef struct s_flag
 	int		F;
 	int		C;
 }	t_flag;
+typedef struct s_win
+{
+	void	*mlx;
+	void	*win;
+}	t_win;
+
 typedef struct s_game
 {
 	char 			**map;
@@ -45,7 +51,8 @@ typedef struct s_game
 	char			*EA;
 	int				*F;
 	int				*C;
-	struct s_map	*map_info;	
+	struct s_map	*map_info;
+	struct s_win	mlx;
 }	t_game;
 typedef struct s_map
 {
